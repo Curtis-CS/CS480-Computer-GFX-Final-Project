@@ -98,7 +98,7 @@ void Sphere::setupVertices() {
             float y = (float)cos(toRadians(180.f - i * 180.f / size));
             float x = -(float)cos(toRadians(j * 360.f / size)) * (float)abs(cos(asin(y)));
             float z = (float)sin(toRadians(j * 360.f / size)) * (float)abs(cos(asin(y)));
-            Vertices[i * (size + 1) + j] = { glm::vec3(x, y, z), glm::vec3(x, y, z), glm::vec2(y, x)};
+            Vertices[i * (size + 1) + j] = { glm::vec3(x, y, z), glm::vec3(x, y, z), glm::vec2((float)j/size, (float)i/size)};
         }
     }
 
