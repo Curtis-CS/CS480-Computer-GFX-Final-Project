@@ -50,7 +50,7 @@ bool Camera::Initialize(int w, int h)
     projection = glm::perspective(glm::radians(FOV), //the FoV typically 90 degrees is good which is what this is set to
         float(w) / float(h), //Aspect Ratio, so Circles stay Circular
         0.01f, //Distance to the near plane, normally a small value like this
-        512.0f); //Distance to the far plane, 
+        2048.0f); //Distance to the far plane, 
     return true;
 }
 
@@ -84,7 +84,7 @@ void Camera::Update()
     view = glm::lookAt(cameraPos, //Eye Position
         cameraPos + cameraFront, //Focus point
         Up); //Positive Y is up
-    projection = glm::perspective(glm::radians(FOV), float(width) / float(height), .01f, 100.0f);
+    projection = glm::perspective(glm::radians(FOV), float(width) / float(height), .01f, 2048.0f);
 }
 
 

@@ -59,9 +59,31 @@ class Graphics
 
     //Cube* m_cube;
 
-    Sphere* m_sphere_sun;
-    Sphere* m_sphere_planet;
-    Sphere* m_sphere_moon;
+    Sphere* m_sun;
+    
+    Sphere* m_mercury;
+    Mesh* m_mercury_orbit;
+    
+    Sphere* m_venus;
+
+    Sphere* m_earth;
+    Sphere* m_earth_moon;
+
+    Sphere* m_mars;
+    Sphere* m_mars_moon1;
+    Sphere* m_mars_moon2;
+
+    Sphere* m_jupiter;
+
+    Sphere* m_saturn;
+    Sphere* m_saturn_moon1;
+    Sphere* m_saturn_moon2;
+
+    Sphere* m_uranus;
+
+    Sphere* m_neptune;
+
+
 
     Mesh* m_mesh;
 
@@ -74,6 +96,7 @@ class Graphics
     glm::mat4 view;
     glm::mat4 projection;
 
+    bool firstFrame;
 
 };
 
