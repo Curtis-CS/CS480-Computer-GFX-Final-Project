@@ -23,6 +23,8 @@ public:
 
     void moveTest();
 
+    glm::mat4 GetViewSkybox();
+
     //void mouseUpdate(const glm::vec2& newMousePos);
 
 private:

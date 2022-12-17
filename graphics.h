@@ -10,6 +10,9 @@ using namespace std;
 #include "shader.h"
 #include "object.h"
 #include "sphere.h"
+#include "shader2.h"
+
+#include "stb_image.h"
 
 //#include "sphere2.h"
 //#include "cube.h"
@@ -30,6 +33,8 @@ class Graphics
     void Render();
 
     Camera* getCamera() { return m_camera; }
+
+    unsigned int loadCubemap(vector<std::string> faces);
 
   private:
     std::string ErrorString(GLenum error);
@@ -60,6 +65,14 @@ class Graphics
 
     Mesh* m_mesh;
 
+    Shader2* skyboxShader;
+    unsigned int skyboxVAO;
+    unsigned int skyboxVBO;
+    unsigned int cubemapTexture;
+
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 projection;
 
 
 };

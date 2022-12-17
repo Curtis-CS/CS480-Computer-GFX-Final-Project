@@ -50,7 +50,7 @@ bool Camera::Initialize(int w, int h)
     projection = glm::perspective(glm::radians(FOV), //the FoV typically 90 degrees is good which is what this is set to
         float(w) / float(h), //Aspect Ratio, so Circles stay Circular
         0.01f, //Distance to the near plane, normally a small value like this
-        100.0f); //Distance to the far plane, 
+        512.0f); //Distance to the far plane, 
     return true;
 }
 
@@ -155,6 +155,12 @@ void Camera::ProcessMouseMovement(double xPosIn, double yPosIn, float fov, doubl
         }
     }
     //std::cout << FOV << std::endl;
+}
+
+glm::mat4 Camera::GetViewSkybox()
+{
+    glm::mat4 skyboxView = glm::mat4(glm::mat3(glm::lookAt(cameraPos, cameraPos + cameraFront, Up)));
+    return skyboxView;
 }
 
 

@@ -1,5 +1,7 @@
 #include "graphics.h"
 
+
+
 Graphics::Graphics()
 {
 
@@ -43,10 +45,8 @@ bool Graphics::Initialize(int width, int height)
 
 	// Set up the shaders
 	m_shader = new Shader();
-	//m_shader->Initialize();
-	//m_shader->AddShader(GL_VERTEX_SHADER);
-	//m_shader->AddShader(GL_FRAGMENT_SHADER);
-	//m_shader->Finalize();
+	//m_shader = new Shader2("base.vs", "base.fs");
+
 	if (!m_shader->Initialize())
 	{
 		printf("Shader Failed to Initialize\n");
@@ -80,21 +80,99 @@ bool Graphics::Initialize(int width, int height)
 		printf("Some shader attribs not located!\n");
 	}
 
-	//m_cube = new Cube("assets\\2k_sun.jpg", m_hasTexture);
+	//Skybox Stuff
+
+
+	skyboxShader = new Shader2("skybox.vs", "skybox.fs");
+
+	float skyboxVertices[] = {
+		// positions          
+		-50.0f,  50.0f, -50.0f,
+		-50.0f, -50.0f, -50.0f,
+		 50.0f, -50.0f, -50.0f,
+		 50.0f, -50.0f, -50.0f,
+		 50.0f,  50.0f, -50.0f,
+		-50.0f,  50.0f, -50.0f,
+
+		-50.0f, -50.0f,  50.0f,
+		-50.0f, -50.0f, -50.0f,
+		-50.0f,  50.0f, -50.0f,
+		-50.0f,  50.0f, -50.0f,
+		-50.0f,  50.0f,  50.0f,
+		-50.0f, -50.0f,  50.0f,
+
+		 50.0f, -50.0f, -50.0f,
+		 50.0f, -50.0f,  50.0f,
+		 50.0f,  50.0f,  50.0f,
+		 50.0f,  50.0f,  50.0f,
+		 50.0f,  50.0f, -50.0f,
+		 50.0f, -50.0f, -50.0f,
+
+		-50.0f, -50.0f,  50.0f,
+		-50.0f,  50.0f,  50.0f,
+		 50.0f,  50.0f,  50.0f,
+		 50.0f,  50.0f,  50.0f,
+		 50.0f, -50.0f,  50.0f,
+		-50.0f, -50.0f,  50.0f,
+
+		-50.0f,  50.0f, -50.0f,
+		 50.0f,  50.0f, -50.0f,
+		 50.0f,  50.0f,  50.0f,
+		 50.0f,  50.0f,  50.0f,
+		-50.0f,  50.0f,  50.0f,
+		-50.0f,  50.0f, -50.0f,
+
+		-50.0f, -50.0f, -50.0f,
+		-50.0f, -50.0f,  50.0f,
+		 50.0f, -50.0f, -50.0f,
+		 50.0f, -50.0f, -50.0f,
+		-50.0f, -50.0f,  50.0f,
+		 50.0f, -50.0f,  50.0f
+	};
+
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+	vector<std::string> faces=
+	{
+		"assets\\Cubemaps\\right.png",
+		"assets\\Cubemaps\\left.png",
+		"assets\\Cubemaps\\top.png",
+		"assets\\Cubemaps\\bottom.png",
+		"assets\\Cubemaps\\front.png",
+		"assets\\Cubemaps\\back.png"
+	};
+
+
+	cubemapTexture = loadCubemap(faces);
+
+	skyboxShader->use();
+	skyboxShader->setInt("skybox", 0);
+
 
 	// Starship
-	m_mesh = new Mesh(glm::vec3(2.0f, 3.0f, -5.0f), "assets\\SpaceShip-1.obj", "assets\\SpaceShip-1.png");
+	m_mesh = new Mesh(glm::vec3(2.0f, 3.0f, -5.0f), "assets\\SpaceShip\\SpaceShip-1.obj", "assets\\SpaceShip\\SpaceShip-1.png");
 
 	// The Sun
-	m_sphere_sun = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5,64, "assets\\2k_sun.jpg");
+	m_sphere_sun = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5,64, "assets\\PlanetaryTextures\\2k_sun.jpg");
 
 	// The Earth
-	m_sphere_planet = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\2k_earth_daymap.jpg");
+	m_sphere_planet = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\2k_earth_daymap.jpg");
 	
 	// The moon
-	m_sphere_moon = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\2k_moon.jpg");
+	m_sphere_moon = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\2k_moon.jpg");
 
-
+	auto error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		string val = ErrorString(error);
+		std::cout << "Error initializing OpenGL! " << error << ", " << val << std::endl;
+	}
 
 	//enable depth testing
 	glEnable(GL_DEPTH_TEST);
@@ -201,26 +279,56 @@ void Graphics::ComputeTransforms(double dt, std::vector<float> speed, std::vecto
 
 void Graphics::Render()
 {
+	auto error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		string val = ErrorString(error);
+		std::cout << "Error initializing OpenGL! " << error << ", " << val << std::endl;
+	}
 	//clear the screen
 	glClearColor(0.5, 0.2, 0.2, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+	skyboxShader->use();
+
+	model = glm::mat4(1.0f);
+	view = m_camera->GetViewSkybox();
+	projection = m_camera->GetProjection();
+	skyboxShader->setMat4("model", model);
+	skyboxShader->setMat4("view", view);
+	skyboxShader->setMat4("projection", projection);
+
+	// skybox cube
+	glBindVertexArray(skyboxVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+	glDepthFunc(GL_LESS); // set depth function back to default
+
 	// Start the correct program
+
 	m_shader->Enable();
+
+	//m_shader->use();
+	//model = glm::mat4(1.0f);
+	//view = m_camera->GetView();
+	//projection = m_camera->GetProjection();
+	//m_shader->setMat4("model", model);
+	//m_shader->setMat4("view", view);
+	//m_shader->setMat4("projection", projection);
 
 	// Send in the projection and view to the shader (stay the same while camera intrinsic(perspective) and extrinsic (view) parameters are the same
 	glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
 	glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
-
-	// Render the objects
-	//if (m_cube != NULL)
-	//{
-	//	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
-	//	m_cube->Render(m_positionAttrib,m_colorAttrib, m_tcAttrib);
-	//}
+	
 
 	if (m_mesh != NULL) {
 		glUniform1i(m_hasTexture, false);
+		
+		//m_shader->setMat4("model", m_mesh->GetModel());
+
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mesh->GetModel()));
 		if (m_mesh->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -234,13 +342,15 @@ void Graphics::Render()
 			m_mesh->Render(m_positionAttrib, m_colorAttrib, m_tcAttrib, m_hasTexture);
 		}
 	}
-
-	///*if (m_pyramid != NULL) {
-	//	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_pyramid->GetModel()));
-	//	m_pyramid->Render(m_positionAttrib, m_colorAttrib);
-	//}*/
+	error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		string val = ErrorString(error);
+		std::cout << "Error initializing OpenGL! " << error << ", " << val << std::endl;
+	}
 
 	if (m_sphere_sun != NULL) {
+		//m_shader->setMat4("model", m_sphere_sun->GetModel());
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere_sun->GetModel()));
 		if (m_sphere_sun->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -256,6 +366,7 @@ void Graphics::Render()
 	}
 
 	if (m_sphere_planet != NULL) {
+		//m_shader->setMat4("model", m_sphere_planet->GetModel());
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere_planet->GetModel()));
 		if (m_sphere_planet->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -273,6 +384,7 @@ void Graphics::Render()
 
 	// Render Moon
 	if (m_sphere_moon != NULL) {
+		//m_shader->setMat4("model", m_sphere_moon->GetModel());
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere_moon->GetModel()));
 		if (m_sphere_moon->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -288,12 +400,9 @@ void Graphics::Render()
 	}
 
 	// Get any errors from OpenGL
-	auto error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		string val = ErrorString(error);
-		std::cout << "Error initializing OpenGL! " << error << ", " << val << std::endl;
-	}
+
+
+
 }
 
 
@@ -386,5 +495,35 @@ std::string Graphics::ErrorString(GLenum error)
 	{
 		return "None";
 	}
+}
+
+unsigned int Graphics::loadCubemap(vector<std::string> faces)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return textureID;
 }
 
