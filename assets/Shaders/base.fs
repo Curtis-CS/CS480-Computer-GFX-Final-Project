@@ -9,8 +9,8 @@ out vec4 frag_color;
 
 void main(void)
 {
-if(hasTexture)
-frag_color = texture(sp, tc);
-else
-frag_color = vec4(color.rgb, 1.0);
+	if(hasTexture)
+		frag_color = texture(sp, tc);
+	else
+		frag_color = vec4(color.rgb, 1.0);
 }

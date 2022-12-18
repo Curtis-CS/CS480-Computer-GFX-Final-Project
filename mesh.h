@@ -42,6 +42,8 @@ private:
     float OffsetRotation=4.5;
 
     float angle;
+
+    const char* fileName;
 };
 
 #endif

@@ -89,7 +89,8 @@ void Engine::ProcessInput()
 
     if (counter < 10)
     {
-        m_graphics->getCamera()->movBack(5);
+        m_graphics->getCamera()->movBack(58);
+        m_graphics->getCamera()->movUp(3);
     }
 
     if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS)
@@ -100,6 +101,16 @@ void Engine::ProcessInput()
     if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS)
     {
         m_graphics->getCamera()->movRight(camSpeed);
+    }
+
+    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_R) == GLFW_PRESS)
+    {
+        m_graphics->getCamera()->movUp(camSpeed);
+    }
+
+    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_F) == GLFW_PRESS)
+    {
+        m_graphics->getCamera()->movDown(camSpeed);
     }
 
     glfwGetCursorPos(m_window->getWindow(), &mXpos, &mYpos);

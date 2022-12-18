@@ -15,6 +15,7 @@ bool Texture::loadTexture(const char* texFile) {
 	m_TextureID = SOIL_load_OGL_texture(texFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 	if (!m_TextureID) {
 		printf("Failed: Could not open texture file!\n");
+		std::cout << texFile << std::endl;
 		return false;
 	}
 	return true;

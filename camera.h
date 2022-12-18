@@ -18,12 +18,22 @@ public:
     void movBack(double camSpeed);
     void movLeft(double camSpeed);
     void movRight(double camSpeed);
+    void movUp(double camSpeed);
+    void movDown(double camSpeed);
 
     void ProcessMouseMovement(double xPosIn, double yPosIn, float fov, double yZoomOffset);
 
     void moveTest();
 
     glm::mat4 GetViewSkybox();
+
+    glm::vec3 cameraPos;
+    glm::vec3 cameraLookTarget;
+    glm::vec3 cameraDirection;
+    glm::vec3 Up;
+    glm::vec3 cameraRight;
+    glm::vec3 cameraUp;
+    glm::vec3 cameraFront;
 
     //void mouseUpdate(const glm::vec2& newMousePos);
 
@@ -33,13 +43,7 @@ private:
 
     glm::vec3 direction;
 
-    glm::vec3 cameraPos;
-    glm::vec3 cameraLookTarget;
-    glm::vec3 cameraDirection;
-    glm::vec3 Up;
-    glm::vec3 cameraRight;
-    glm::vec3 cameraUp;
-    glm::vec3 cameraFront;
+
 
     double oldMXPos;
     double oldMYPos;

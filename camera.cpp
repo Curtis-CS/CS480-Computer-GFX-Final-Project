@@ -2,8 +2,8 @@
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
+const float SPEED = 3.f;
+const float SENSITIVITY = 0.03f;
 
 Camera::Camera()
 {
@@ -50,7 +50,7 @@ bool Camera::Initialize(int w, int h)
     projection = glm::perspective(glm::radians(FOV), //the FoV typically 90 degrees is good which is what this is set to
         float(w) / float(h), //Aspect Ratio, so Circles stay Circular
         0.01f, //Distance to the near plane, normally a small value like this
-        2048.0f); //Distance to the far plane, 
+        10000.0f); //Distance to the far plane, 
     return true;
 }
 
@@ -84,7 +84,7 @@ void Camera::Update()
     view = glm::lookAt(cameraPos, //Eye Position
         cameraPos + cameraFront, //Focus point
         Up); //Positive Y is up
-    projection = glm::perspective(glm::radians(FOV), float(width) / float(height), .01f, 2048.0f);
+    projection = glm::perspective(glm::radians(FOV), float(width) / float(height), .01f, 10000.0f);
 }
 
 
@@ -103,6 +103,16 @@ void Camera::movLeft(double camSpeed)
 void Camera::movRight(double camSpeed)
 {
     cameraPos += glm::normalize(glm::cross(cameraFront, Up)) * (float)camSpeed;
+}
+
+void Camera::movUp(double camSpeed)
+{
+    cameraPos.y += camSpeed;
+}
+
+void Camera::movDown(double camSpeed)
+{
+    cameraPos.y -= camSpeed;
 }
 
 void Camera::moveTest()

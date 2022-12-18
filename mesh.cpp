@@ -21,6 +21,7 @@ Mesh::Mesh(glm::vec3 pivot, const char* fname)
 {
 	// Vertex Set Up
 	loadModelFromFile(fname);
+	fileName = fname;
 
 	// Model Set Up
 	angle = 0.0f;
@@ -39,6 +40,7 @@ Mesh::Mesh(glm::vec3 pivot, const char* fname, const char* tname)
 {
 	// Vertex Set Up
 	loadModelFromFile(fname);
+	fileName = fname;
 
 	// Model Set Up
 	angle = 0.0f;
@@ -67,9 +69,9 @@ Mesh::~Mesh()
 
 void Mesh::Update(glm::mat4 inmodel)
 {
-	OffsetRotation += .0001;
+	//OffsetRotation += .0001;
 	model = inmodel;
-	model *= glm::rotate(glm::mat4(1.0f), 1 * (float)OffsetRotation, glm::vec3(0., 1., 0.));
+	//model *= glm::rotate(glm::mat4(1.0f), 1 * (float)OffsetRotation, glm::vec3(0., 1., 0.));
 
 }
 
@@ -184,9 +186,18 @@ bool Mesh::loadModelFromFile(const char* path) {
 			for (int k = 0; k < 3; k++) {
 				aiVector3D& pTexCoord = mesh->mTextureCoords[i][j];
 				// update here for each mesh's vertices to assign position, normal, and texture coordinates
-				Vertices.push_back(Vertex(glm::vec3(mesh->mVertices[face.mIndices[k]].x, mesh->mVertices[face.mIndices[k]].y, mesh->mVertices[face.mIndices[k]].z),
-					glm::vec3(mesh->mNormals[face.mIndices[k]].x, mesh->mNormals[face.mIndices[k]].y, mesh->mNormals[face.mIndices[k]].z),
-					glm::vec2(pTexCoord.x, pTexCoord.y)));
+				if (fileName == "assets\\Objects\\Ring.png")
+				{
+					Vertices.push_back(Vertex(glm::vec3(mesh->mVertices[face.mIndices[k]].x, mesh->mVertices[face.mIndices[k]].y, mesh->mVertices[face.mIndices[k]].z),
+						glm::vec3(mesh->mNormals[face.mIndices[k]].x, mesh->mNormals[face.mIndices[k]].y, mesh->mNormals[face.mIndices[k]].z),
+						glm::vec2(0, 0)));
+				}
+				else
+				{
+					Vertices.push_back(Vertex(glm::vec3(mesh->mVertices[face.mIndices[k]].x, mesh->mVertices[face.mIndices[k]].y, mesh->mVertices[face.mIndices[k]].z),
+						glm::vec3(mesh->mNormals[face.mIndices[k]].x, mesh->mNormals[face.mIndices[k]].y, mesh->mNormals[face.mIndices[k]].z),
+						glm::vec2(pTexCoord.x, pTexCoord.y)));
+				}
 			}
 
 		}
