@@ -1,45 +1,44 @@
-#version 330 core
-out vec4 FragColor;
+#version 460
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;    
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;    
     float shininess;
 }; 
 
-struct Light {
+struct PositionalLight {
     vec3 position;
 
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 spec;
 };
+uniform vec4 GlobalAmbient;
+uniform PositionalLight light;
 
-in vec3 FragPos;  
-in vec3 Normal;  
-  
-uniform vec3 viewPos;
-uniform Material material;
-uniform Light light;
+layout (location = 0) in vec3 v_position;
+layout (location = 1) in vec2 texCoord;
+layout (location = 2) in vec3 v_normal;
+out vec3 varNorm;
+out vec3 varLdir;
+out vec3 varPos;
+out vec3 tc; 
+layout (binding = 0) uniform sampler2D samp;
+layout (binding = 1) uniform sampler2D samp1;
 
-void main()
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+uniform mat3 normMatrix;
+
+void main(void)
 {
-    // ambient
-    vec3 ambient = light.ambient * material.ambient;
-  	
-    // diffuse 
-    vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(light.position - FragPos);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * (diff * material.diffuse);
     
-    // specular
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * (spec * material.specular);  
-        
-    vec3 result = ambient + diffuse + specular;
-    FragColor = vec4(result, 1.0);
+    vec4 v = vec4(v_position, 1.0);
+    gl-position = (projectionMatrix * viewMatrix * modelMatrix) * v;
+    tc = texCoord;
+    varPos = (viewMatrix * modelMatrix * vec4(v_position, 1.0f)).xyz;
+    varLdir = light.position-varPos;
+    varNorm = normMatrix*v_normal;
 } 

@@ -710,55 +710,6 @@ void Graphics::Render()
 	glClearColor(0.5, 0.2, 0.2, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Lighting Shading
-
-		// be sure to activate shader when setting uniforms/drawing objects
-	lightingShader->use();
-	lightingShader->setVec3("light.position", lightPos);
-	lightingShader->setVec3("viewPos", m_camera->cameraPos);
-
-	// light properties
-	lightingShader->setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-	lightingShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-	lightingShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-	// material properties
-	lightingShader->setFloat("material.shininess", 64.0f);
-
-	// view/projection transformations
-	projection = m_camera->GetProjection();
-	view = m_camera->GetView();
-	lightingShader->setMat4("projection", projection);
-	lightingShader->setMat4("view", view);
-
-	// world transformation
-	model = glm::mat4(1.0f);
-	lightingShader->setMat4("model", model);
-
-	// bind diffuse map
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, diffuseMapTestCube);
-	// bind specular map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, specularMapTestCube);
-
-	// render the cube
-	glBindVertexArray(cubeVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-	// also draw the lamp object
-	lightCubeShader->use();
-	lightCubeShader->setMat4("projection", projection);
-	lightCubeShader->setMat4("view", view);
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, lightPos);
-	model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-	lightCubeShader->setMat4("model", model);
-
-	glBindVertexArray(lightCubeVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
 
 	//SKybox Shading---------------
 	glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
@@ -779,6 +730,52 @@ void Graphics::Render()
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS); // set depth function back to default
 
+	GLuint globalAmbLoc = m_shader2->GetUniformLocation("normalSP");
+	if (globalAmbLoc == -1)
+	{
+		printf("globalAmbient attribute not found\n");
+	}
+
+	// Locate the light ambient attribute
+	GLuint lightALoc = m_shader2->GetUniformLocation("PositionalLight.ambient");
+	if (lightALoc == -1)
+	{
+		printf("lightAmbient attribute not found\n");
+	}
+
+	// Locate the light diffuse attribute
+	GLuint lightDLoc = m_shader2->GetUniformLocation("PositionalLight.diffuse");
+	if (lightDLoc == -1)
+	{
+		printf("lightDiffuse attribute not found\n");
+
+	}
+	//Locate light specular attribute
+	GLuint lightSLoc = m_shader2->GetUniformLocation("PositionalLight.spec");
+	if (lightSLoc == INVALID_UNIFORM_LOCATION) {
+		printf("lightSpec uniform not found\n");
+	}
+
+	// Locate the light position attribute
+	GLuint lightPosLoc = m_shader2->GetUniformLocation("PositionalLight.position");
+	if (lightPosLoc == -1)
+	{
+		printf("lightPosition attribute not found\n");
+	}
+
+	float matAmbient[4] = { .2,.2,.2,1.0 };
+	float matDiff[4] = { 1., 1., 1., 1. };
+	float matSpec[4] = { 1., 1., 1., 1. };
+	float matShininess = 20.0;
+
+	GLuint mAmbLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.ambient"), "materal.ambient");
+	glProgramUniform4fv(m_shader2->GetUniformLocation("light.ambient"), mAmbLoc, 1, matAmbient);
+	GLuint mDiffLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.diffuse"), "material.diffuse");
+	glProgramUniform4fv(m_shader2->GetUniformLocation("light.diffuse"), mDiffLoc, 1, matDiff);
+	GLuint mSpecLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.spec"), "materal.spec");
+	glProgramUniform4fv(m_shader2->GetUniformLocation("light.spec"), mSpecLoc, 1, matSpec);
+	GLuint mShineLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.spec"), "material.shininess");
+	glProgramUniform1f(m_shader2->GetUniformLocation("light.spec"), mShineLoc, matShininess);
 	// Start the correct program
 
 	m_shader2->use();
@@ -787,7 +784,71 @@ void Graphics::Render()
 	glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
 	glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 	
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mercury->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sun->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mercury->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mercury->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_venus->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_venus->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_earth->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_earth->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mars->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mars->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres1->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres1->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres2->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres2->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres3->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres3->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres4->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres4->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres5->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres5->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres6->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres6->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres7->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres7->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres8->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres8->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres9->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres9->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres10->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres10->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres11->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres11->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres12->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres12->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres13->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres13->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres14->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres14->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres15->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres15->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres16->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres16->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres17->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres17->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres18->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres18->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres19->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres19->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres20->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres20->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_jupiter->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_jupiter->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_saturn->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_saturn->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_neptune->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_neptune->GetModel()));
+	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_comet->GetModel()))))));
+	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_comet->GetModel()));
 
+
+
+
+
+	
+	
 	if (m_mesh != NULL) {
 		glUniform1i(m_hasTexture, false);
 		

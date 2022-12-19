@@ -71,6 +71,7 @@ class Graphics
     GLint m_projectionMatrix;
     GLint m_viewMatrix;
     GLint m_modelMatrix;
+    GLint m_normalMatrix;
     GLint m_positionAttrib;
     GLint m_normalAttrib;
     GLint m_tcAttrib;

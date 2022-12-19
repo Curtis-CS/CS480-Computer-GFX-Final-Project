@@ -22,7 +22,12 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 #define INVALID_UNIFORM_LOCATION 0x7fffffff
-
+struct Material {
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+	float shininess;
+};
 struct Vertex
 {
   glm::vec3 vertex;

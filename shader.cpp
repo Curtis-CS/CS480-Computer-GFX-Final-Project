@@ -51,6 +51,14 @@ bool Shader::AddShader(GLenum ShaderType)
           \
           layout (binding=0) uniform sampler2D sp; \
           \
+          struct PositionalLight{\
+            vec4 ambient;\
+            vec4 diffuse;\
+            vec4 spec;\
+            vec3 position;\
+            };\
+          uniform vec4 GlobalAmbient;\
+          uniform PositionalLight light;\
           uniform mat4 projectionMatrix; \
           uniform mat4 viewMatrix; \
           uniform mat4 modelMatrix; \
