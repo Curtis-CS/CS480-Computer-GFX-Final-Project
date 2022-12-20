@@ -72,7 +72,7 @@ void Engine::ProcessInput()
     timer = timer + 1;
 
     float dt = getDT();
-    float camSpeed = .02f * dt;
+    float camSpeed = .005f * dt;
 
     if (glfwGetKey(m_window->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window->getWindow(), true);
