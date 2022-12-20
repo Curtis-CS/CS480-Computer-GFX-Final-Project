@@ -13,9 +13,6 @@ using namespace std;
 
 #include "stb_image.h"
 
-//#include "sphere2.h"
-//#include "cube.h"
-
 #include "mesh.h"
 
 #define numVBOs 2;
@@ -33,18 +30,22 @@ class Graphics
 
     Camera* getCamera() { return m_camera; }
 
+    //Function to load up the skybox
     unsigned int loadCubemap(vector<std::string> faces);
 
-    unsigned int loadTexture(char const* path);
-
+    //This is where we would have our instancing, however unfortunately it is just a bunch of renders
     void updateAsteroidBelt(double dt);
     void renderAsteroidBelt();
+    void updateKuiperBelt(double dt);
+    void renderKuiperBelt();
 
+    //Functions to make code easier to manage
     void initSkybox();
     void initLighting();
     void initObjects();
     void initShaders();
 
+    //Special transform for spaceship, similar to local transform
     glm::mat4 spaceshipTransform;
 
     std::vector<float> speed, dist, rotSpeed, scale;
@@ -54,6 +55,8 @@ class Graphics
     float multiplierD = 12;
     float distM;
     float scaler = .005;
+
+    bool gameMode = false;
 
   private:
     std::string ErrorString(GLenum error);
@@ -71,14 +74,13 @@ class Graphics
     GLint m_projectionMatrix;
     GLint m_viewMatrix;
     GLint m_modelMatrix;
-    GLint m_normalMatrix;
     GLint m_positionAttrib;
     GLint m_normalAttrib;
     GLint m_tcAttrib;
     GLint m_hasTexture;
 
-    //Cube* m_cube;
 
+    //All of our objects
     Sphere* m_sun;
     
     Sphere* m_mercury;
@@ -105,7 +107,7 @@ class Graphics
     void updateMars(double dt);
 
 
-    //Astroid Belt
+    //Astroid Belt, unfortunately no time for instancing. I am sorry
     Sphere* m_ceres1;
     Sphere* m_ceres2;
     Sphere* m_ceres3;
@@ -128,6 +130,9 @@ class Graphics
     Sphere* m_ceres20;
 
     Sphere* m_jupiter;
+    Sphere* m_jupiter_moon1;
+    Sphere* m_jupiter_moon2;
+    Sphere* m_jupiter_moon3;
     void renderJupiter();
     void updateJupiter(double dt);
 
@@ -151,15 +156,35 @@ class Graphics
     void updateNeptune(double dt);
 
 
-    Mesh* m_comet;
+    Sphere* m_haley_comet;
     void renderComet();
     void updateComet(double dt);
 
 
-    Mesh* m_kuiper_belt;
+    //Kuiper belt, again sorry no instancing
+    Sphere* m_kuiper1;
+    Sphere* m_kuiper2;
+    Sphere* m_kuiper3;
+    Sphere* m_kuiper4;
+    Sphere* m_kuiper5;
+    Sphere* m_kuiper6;
+    Sphere* m_kuiper7;
+    Sphere* m_kuiper8;
+    Sphere* m_kuiper9;
+    Sphere* m_kuiper10;
+    Sphere* m_kuiper11;
+    Sphere* m_kuiper12;
+    Sphere* m_kuiper13;
+    Sphere* m_kuiper14;
+    Sphere* m_kuiper15;
+    Sphere* m_kuiper16;
+    Sphere* m_kuiper17;
+    Sphere* m_kuiper18;
+    Sphere* m_kuiper19;
+    Sphere* m_kuiper20;
 
 
-
+    //Starship
     Mesh* m_mesh;
 
     //Skybox
@@ -185,6 +210,8 @@ class Graphics
     glm::mat4 projection;
 
     bool firstFrame;
+
+    unsigned int loadTexture(char const* path);
 
 };
 

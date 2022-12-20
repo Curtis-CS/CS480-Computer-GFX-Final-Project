@@ -69,7 +69,7 @@ void Engine::Run()
 void Engine::ProcessInput()
 {
 
-    
+    timer = timer + 1;
 
     float dt = getDT();
     float camSpeed = .02f * dt;
@@ -77,43 +77,111 @@ void Engine::ProcessInput()
     if (glfwGetKey(m_window->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window->getWindow(), true);
 
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS)
-    {
-        m_graphics->getCamera()->movForward(camSpeed);
-    }
 
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS)
-    {
-        m_graphics->getCamera()->movBack(camSpeed);
-    }
 
+    //Initial movement of camera to position the user at a nice distance
     if (counter < 10)
     {
         m_graphics->getCamera()->movBack(58);
         m_graphics->getCamera()->movUp(3);
     }
-
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS)
+    if (m_graphics->gameMode == false)
     {
-        m_graphics->getCamera()->movLeft(camSpeed);
+        //Movement of camera/spaceship with keys, R and F to go down
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->forBackVel = m_graphics->getCamera()->forBackVel + cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->forBackVel = m_graphics->getCamera()->forBackVel - cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->leftRightVel = m_graphics->getCamera()->leftRightVel - cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->leftRightVel = m_graphics->getCamera()->leftRightVel + cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_R) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->upDownVel = m_graphics->getCamera()->upDownVel + cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_F) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->upDownVel = m_graphics->getCamera()->upDownVel - cameraSpeed;
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->upDownVel = 0;
+            m_graphics->getCamera()->leftRightVel = 0;
+            m_graphics->getCamera()->forBackVel = 0;
+        }
+    }
+    else
+    {
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movForward(camSpeed);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movBack(camSpeed);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movLeft(camSpeed);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movRight(camSpeed);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_R) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movUp(camSpeed);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_F) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->movDown(camSpeed);
+        }
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+        {
+            m_graphics->getCamera()->upDownVel = 0;
+            m_graphics->getCamera()->leftRightVel = 0;
+            m_graphics->getCamera()->forBackVel = 0;
+        }
     }
 
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS)
+    //Our 'gamemode' key, with the timer to make sure us holding the button longer doesn't swap it constatnly
+    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_E) == GLFW_PRESS)
     {
-        m_graphics->getCamera()->movRight(camSpeed);
+        if (timer > 30)
+        {
+            m_graphics->getCamera()->upDownVel = 0;
+            m_graphics->getCamera()->leftRightVel = 0;
+            m_graphics->getCamera()->forBackVel = 0;
+            //Swap gamemode
+            m_graphics->gameMode = !m_graphics->gameMode;
+            timer = 0;
+        }
     }
 
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_R) == GLFW_PRESS)
-    {
-        m_graphics->getCamera()->movUp(camSpeed);
-    }
-
-    if (glfwGetKey(m_window->getWindow(), GLFW_KEY_F) == GLFW_PRESS)
-    {
-        m_graphics->getCamera()->movDown(camSpeed);
-    }
-
+    //Our method of getting and tracking mouse movement
     glfwGetCursorPos(m_window->getWindow(), &mXpos, &mYpos);
+    //Our method of detecting mouse scroll whell activity to zoom in and out
+    //If the user hasn't zoomed at all yet do this
     if (yZoomOffset == nullptr)
     {
         m_graphics->getCamera()->ProcessMouseMovement(mXpos, mYpos, fov, 0);
@@ -122,28 +190,19 @@ void Engine::ProcessInput()
     {
         m_graphics->getCamera()->ProcessMouseMovement(mXpos, mYpos, fov, *yZoomOffset);
     }
-    m_graphics->getCamera()->Update();
 
     counter = counter + 1;
 
 }
 
+//Get DT
 unsigned int Engine::getDT()
 {
-    //long long TimeNowMillis = GetCurrentTimeMillis();
-    //assert(TimeNowMillis >= m_currentTimeMillis);
-    //unsigned int DeltaTimeMillis = (unsigned int)(TimeNowMillis - m_currentTimeMillis);
-    //m_currentTimeMillis = TimeNowMillis;
-    //return DeltaTimeMillis;
     return glfwGetTime();
 }
 
 long long Engine::GetCurrentTimeMillis()
 {
-    //timeval t;
-    //gettimeofday(&t, NULL);
-    //long long ret = t.tv_sec * 1000 + t.tv_usec / 1000;
-    //return ret;
     return (long long)glfwGetTime();
 }
 

@@ -9,7 +9,7 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-
+	
 }
 
 bool Graphics::Initialize(int width, int height)
@@ -50,7 +50,7 @@ bool Graphics::Initialize(int width, int height)
 	initSkybox();
 
 	//Lighting
-	initLighting();
+	//initLighting();
 
 	//Objects
 	initObjects();
@@ -71,6 +71,7 @@ bool Graphics::Initialize(int width, int height)
 	return true;
 }
 
+//Create and load the base shader
 void Graphics::initShaders()
 {
 	m_shader2 = new Shader2("assets\\Shaders\\base.vs", "assets\\Shaders\\base.fs");
@@ -83,6 +84,7 @@ void Graphics::initShaders()
 	}
 }
 
+//Create all of the objects
 void Graphics::initObjects()
 {
 	// Starship
@@ -119,20 +121,23 @@ void Graphics::initObjects()
 	m_ceres7 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
 	m_ceres8 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
 	m_ceres9 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres10 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres11 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres12 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres13 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres14 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres15 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres16 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres17 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres18 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres19 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
-	m_ceres20 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_ceres10 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres11 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres12 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres13 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres14 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres15 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_ceres16 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_ceres17 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_ceres18 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_ceres19 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_ceres20 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
 
 	//Jupiter
 	m_jupiter = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Jupiter.jpg");
+	m_jupiter_moon1 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\2k_moon.jpg");
+	m_jupiter_moon2 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Mars.jpg");
+	m_jupiter_moon3 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
 
 	// Saturn
 	m_saturn = new Sphere(glm::vec3(-3.f, -2.f, 100.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Saturn.jpg");
@@ -149,8 +154,34 @@ void Graphics::initObjects()
 
 	//Neptune
 	m_neptune = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Neptune.jpg");
+
+	//Halley's Comet
+	m_haley_comet = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+
+	//Kuiper Belt, again sorry
+	m_kuiper1 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_kuiper2 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_kuiper3 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_kuiper4 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_kuiper5 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Haumea.jpg");
+	m_kuiper6 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper7 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper8 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper9 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper10 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper11 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper12 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper13 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Eris.jpg");
+	m_kuiper14 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper15 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper16 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper17 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper18 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper19 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
+	m_kuiper20 = new Sphere(glm::vec3(-3.f, -2.f, 2.f), 25, 1.5, 48, "assets\\PlanetaryTextures\\Ceres.jpg");
 }
 
+//Create and load the skybox
 void Graphics::initSkybox()
 {
 	skyboxShader = new Shader2("assets\\Shaders\\skybox.vs", "assets\\Shaders\\skybox.fs");
@@ -225,6 +256,7 @@ void Graphics::initSkybox()
 	skyboxShader->setInt("skybox", 0);
 }
 
+//Lighting we were working on that worked, however didn't get implemented into other objects
 void Graphics::initLighting()
 {
 	float lightVertices[] = {
@@ -313,30 +345,38 @@ void Graphics::HierarchicalUpdate2(double dt)
 
 	
 
-	getCamera()->Update();
+	
 	//Initial jump start for planets
 	if (firstFrame = true)
 	{
 		dt = dt +7000;
 	}
 
-
-
 	//The Starship
-	speed = { 0., 0., 0. };
-	dist = { .0, .0, .1 };
-	rotVector = { 0.,0.,0. };
-	rotSpeed = { 1., 1., 1. };
-	scaler = .005;
-	scaler = scaler * multiplier;
-	scale = { scaler, scaler, scaler };
-	spaceshipTransform = glm::mat4(1.0f);
-	spaceshipTransform = glm::translate(spaceshipTransform, m_camera->cameraPos + m_camera->cameraFront);		// start with camera matrix coordinate
-	spaceshipTransform = glm::translate(spaceshipTransform, glm::vec3(0., -.4f, -1.));
-	spaceshipTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
-	if (m_mesh != NULL)
-		m_mesh->Update(spaceshipTransform);
-	getCamera()->Update();
+	if (gameMode == false)
+	{
+		scaler = .003;
+		scaler = scaler * multiplier;
+		scale = { scaler, scaler, scaler };
+		spaceshipTransform = glm::mat4(1.0f);
+		spaceshipTransform = glm::translate(spaceshipTransform, m_camera->cameraPos + m_camera->cameraFront);		// start with camera matrix coordinate
+		spaceshipTransform = glm::translate(spaceshipTransform, glm::vec3(0., -.4f, -1.));
+		spaceshipTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+		if (m_mesh != NULL)
+			m_mesh->Update(spaceshipTransform);
+	}
+	if (gameMode == true)
+	{
+		scaler = .003;
+		scaler = scaler * multiplier;
+		scale = { scaler, scaler, scaler };
+		spaceshipTransform = glm::mat4(1.0f);
+		spaceshipTransform = glm::translate(spaceshipTransform, m_camera->cameraPos + m_camera->cameraFront);		// start with camera matrix coordinate
+		spaceshipTransform = glm::translate(spaceshipTransform, glm::vec3(0., -.4f, 5.));
+		spaceshipTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+		if (m_mesh != NULL)
+			m_mesh->Update(spaceshipTransform);
+	}
 
 
 	// position of the sun	
@@ -359,7 +399,8 @@ void Graphics::HierarchicalUpdate2(double dt)
 	// position of the mars
 	updateMars(dt);
 
-	//updateAsteroidBelt(dt);
+	//Positions of Asteroid belt
+	updateAsteroidBelt(dt);
 
 	// position of the jupiter
 	updateJupiter(dt);
@@ -373,15 +414,18 @@ void Graphics::HierarchicalUpdate2(double dt)
 	// position of the neptune
 	updateNeptune(dt);
 
-	//Eris=Dwarf planet far away
-	//Haumea = Kuiper belt object, past neptune
+	//Position of Haley's comet
+	updateComet(dt);
 
-	//modelStack.pop();	// empy stack
+	//Positions of Kuiper Belt
+	updateKuiperBelt(dt);
+
 	if (firstFrame = true)
 	{
 		firstFrame = false;
 	}
 
+	m_camera->Update();
 
 }
 
@@ -513,7 +557,7 @@ void Graphics::updateMars(double dt)
 	distM = distM * multiplier;
 	dist = { distM, 0, distM };
 	rotVector = { 1.,0.,0. };
-	rotSpeed = { 1., 1., 1. };
+	rotSpeed = { 1.5, 1.5, 1.5 };
 	scaler = .16;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
@@ -542,11 +586,69 @@ void Graphics::updateJupiter(double dt)
 	localTransform = modelStack.top();				// start with sun's coordinate
 	localTransform *= glm::translate(glm::mat4(1.f),
 		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
-	//modelStack.push(localTransform);			// store planet-sun coordinate
+	modelStack.push(localTransform);			// store planet-sun coordinate
 	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
 	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
 	if (m_jupiter != NULL)
 		m_jupiter->Update(localTransform);
+	
+	//Update Jupiter moon 1
+	speed = { 1., 1., 1. };
+	distM = 1;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { .2, .2, .2 };
+	scaler = .1;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_jupiter_moon1 != NULL)
+		m_jupiter_moon1->Update(localTransform);
+
+	//Update Jupiter moon 2
+	speed = { 0.5, 0.0, 0.5 };
+	distM = 1.5;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 1.,1.,0. };
+	rotSpeed = { .1, .1, .1 };
+	scaler = .25;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_jupiter_moon2 != NULL)
+		m_jupiter_moon2->Update(localTransform);
+
+	//Update Jupiter moon 3
+	speed = { 1.05, 1.05, 1.05 };
+	distM = .8;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 1.,1.,1. };
+	rotSpeed = { .4, .4, .4 };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_jupiter_moon3 != NULL)
+		m_jupiter_moon3->Update(localTransform);
+
+	modelStack.pop();
 }
 
 void Graphics::updateSaturn(double dt)
@@ -613,7 +715,7 @@ void Graphics::updateSaturn(double dt)
 
 	// position of the saturn moon2
 	speed = { 0.0025, 0.0025, 0.0025 };
-	distM = 1.5;
+	distM = 2.;
 	distM = distM * multiplier;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
@@ -695,6 +797,26 @@ void Graphics::updateNeptune(double dt)
 		m_neptune->Update(localTransform);
 }
 
+void Graphics::updateComet(double dt)
+{
+	speed = { 0.000795, 0.000795, 0.000795 };
+	distM = 26;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .4;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_haley_comet != NULL)
+		m_haley_comet->Update(localTransform);
+}
+
 void Graphics::ComputeTransforms(double dt, std::vector<float> speed, std::vector<float> dist, 
 	std::vector<float> rotSpeed, glm::vec3 rotVector, std::vector<float> scale, glm::mat4& tmat, glm::mat4& rmat, glm::mat4& smat) {
 	tmat = glm::translate(glm::mat4(1.f),
@@ -709,6 +831,8 @@ void Graphics::Render()
 	//clear the screen
 	glClearColor(0.5, 0.2, 0.2, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//Lighting Shading. Had a prototye that didn't function all the way and so had to be removed
 
 
 	//SKybox Shading---------------
@@ -730,52 +854,6 @@ void Graphics::Render()
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS); // set depth function back to default
 
-	GLuint globalAmbLoc = m_shader2->GetUniformLocation("normalSP");
-	if (globalAmbLoc == -1)
-	{
-		printf("globalAmbient attribute not found\n");
-	}
-
-	// Locate the light ambient attribute
-	GLuint lightALoc = m_shader2->GetUniformLocation("PositionalLight.ambient");
-	if (lightALoc == -1)
-	{
-		printf("lightAmbient attribute not found\n");
-	}
-
-	// Locate the light diffuse attribute
-	GLuint lightDLoc = m_shader2->GetUniformLocation("PositionalLight.diffuse");
-	if (lightDLoc == -1)
-	{
-		printf("lightDiffuse attribute not found\n");
-
-	}
-	//Locate light specular attribute
-	GLuint lightSLoc = m_shader2->GetUniformLocation("PositionalLight.spec");
-	if (lightSLoc == INVALID_UNIFORM_LOCATION) {
-		printf("lightSpec uniform not found\n");
-	}
-
-	// Locate the light position attribute
-	GLuint lightPosLoc = m_shader2->GetUniformLocation("PositionalLight.position");
-	if (lightPosLoc == -1)
-	{
-		printf("lightPosition attribute not found\n");
-	}
-
-	float matAmbient[4] = { .2,.2,.2,1.0 };
-	float matDiff[4] = { 1., 1., 1., 1. };
-	float matSpec[4] = { 1., 1., 1., 1. };
-	float matShininess = 20.0;
-
-	GLuint mAmbLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.ambient"), "materal.ambient");
-	glProgramUniform4fv(m_shader2->GetUniformLocation("light.ambient"), mAmbLoc, 1, matAmbient);
-	GLuint mDiffLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.diffuse"), "material.diffuse");
-	glProgramUniform4fv(m_shader2->GetUniformLocation("light.diffuse"), mDiffLoc, 1, matDiff);
-	GLuint mSpecLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.spec"), "materal.spec");
-	glProgramUniform4fv(m_shader2->GetUniformLocation("light.spec"), mSpecLoc, 1, matSpec);
-	GLuint mShineLoc = glGetUniformLocation(m_shader2->GetUniformLocation("light.spec"), "material.shininess");
-	glProgramUniform1f(m_shader2->GetUniformLocation("light.spec"), mShineLoc, matShininess);
 	// Start the correct program
 
 	m_shader2->use();
@@ -784,76 +862,9 @@ void Graphics::Render()
 	glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
 	glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 	
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mercury->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sun->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mercury->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mercury->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_venus->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_venus->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_earth->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_earth->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_mars->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mars->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres1->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres1->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres2->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres2->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres3->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres3->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView() * m_ceres4->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres4->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres5->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres5->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres6->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres6->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres7->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres7->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres8->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres8->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres9->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres9->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres10->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres10->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres11->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres11->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres12->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres12->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres13->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres13->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres14->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres14->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres15->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres15->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres16->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres16->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres17->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres17->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres18->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres18->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres19->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres19->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_ceres20->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ceres20->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_jupiter->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_jupiter->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_saturn->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_saturn->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_neptune->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_neptune->GetModel()));
-	glUniformMatrix3fv(m_normalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(glm::inverse(glm::mat3(m_camera->GetView()* m_comet->GetModel()))))));
-	glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_comet->GetModel()));
-
-
-
-
-
-	
-	
+	//Starship Rendering
 	if (m_mesh != NULL) {
 		glUniform1i(m_hasTexture, false);
-		
-		//m_shader->setMat4("model", m_mesh->GetModel());
-
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mesh->GetModel()));
 		if (m_mesh->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -867,6 +878,8 @@ void Graphics::Render()
 			m_mesh->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
 		}
 	}
+
+	//Check for errors
 	auto error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
@@ -874,8 +887,8 @@ void Graphics::Render()
 		std::cout << "Error initializing OpenGL! " << error << ", " << val << std::endl;
 	}
 
+	//Render the sun
 	if (m_sun != NULL) {
-		//m_shader->setMat4("model", m_sun->GetModel());
 		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sun->GetModel()));
 		if (m_sun->hasTex) {
 			glActiveTexture(GL_TEXTURE0);
@@ -903,7 +916,7 @@ void Graphics::Render()
 	renderMars();
 
 	//Astroid Belt
-	//renderAsteroidBelt();
+	renderAsteroidBelt();
 
 	//Jupiter
 	renderJupiter();
@@ -916,6 +929,12 @@ void Graphics::Render()
 
 	//Neptune
 	renderNeptune();
+
+	//Haley's comet
+	renderComet();
+
+	//Kuiper Belt
+	renderKuiperBelt();
 
 }
 
@@ -1064,6 +1083,52 @@ void Graphics::renderJupiter()
 			m_jupiter->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
 		}
 	}
+
+	if (m_jupiter_moon1 != NULL) {
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_jupiter_moon1->GetModel()));
+		if (m_jupiter_moon1->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_jupiter_moon1->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_jupiter_moon1->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
+	if (m_jupiter_moon2 != NULL) {
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_jupiter_moon2->GetModel()));
+		if (m_jupiter_moon2->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_jupiter_moon2->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_jupiter_moon2->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
+	if (m_jupiter_moon3 != NULL) {
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_jupiter_moon3->GetModel()));
+		if (m_jupiter_moon3->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_jupiter_moon3->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_jupiter_moon3->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
 }
 
 void Graphics::renderSaturn()
@@ -1199,6 +1264,25 @@ void Graphics::renderNeptune()
 	}
 }
 
+void Graphics::renderComet()
+{
+	if (m_haley_comet != NULL) {
+		//m_shader->setMat4("model", m_earth->GetModel());
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_haley_comet->GetModel()));
+		if (m_haley_comet->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_venus->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_haley_comet->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+}
+
 
 bool Graphics::collectShPrLocs() {
 	bool anyProblem = true;
@@ -1321,7 +1405,6 @@ unsigned int Graphics::loadCubemap(vector<std::string> faces)
 	return textureID;
 }
 
-
 unsigned int Graphics::loadTexture(char const* path)
 {
 	unsigned int textureID;
@@ -1359,16 +1442,17 @@ unsigned int Graphics::loadTexture(char const* path)
 	return textureID;
 }
 
+//Update asteraoid belt, sorry for no instances
 void Graphics::updateAsteroidBelt(double dt)
 {
 	//Ceres1 in astroid belt
 	speed = { 0.005, 0.008, 0.005 };
-	distM = 16.5;
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1381,13 +1465,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres1->Update(localTransform);
 
 	//Ceres2 in astroid belt
-	speed = { -0.01, 0.001, -0.01 };
-	distM = 16.5;
+	speed = { 0.0051, 0.0081, 0.0051 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1399,13 +1483,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres2->Update(localTransform);
 	
 	//Ceres3 in astroid belt
-	speed = { 0.003, 0.005, 0.003 };
-	distM = 16.5;
+	speed = { 0.0049, 0.0079, 0.0049 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1417,13 +1501,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres3->Update(localTransform);
 	
 	//Ceres4 in astroid belt
-	speed = { 0.001, 0.0013, 0.01 };
-	distM = 16.5;
+	speed = { 0.0052, 0.0082, 0.0052 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1435,13 +1519,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres4->Update(localTransform);
 
 	//Ceres5 in astroid belt
-	speed = { 0.009, 0.012, 0.009 };
-	distM = 16.5;
+	speed = { 0.0048, 0.0078, 0.0048 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1453,13 +1537,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres5->Update(localTransform);
 
 	//Ceres6 in astroid belt
-	speed = { 0.008, 0.011, 0.08 };
-	distM = 16.5;
+	speed = { 0.0053, 0.0083, 0.0053 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1471,13 +1555,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres6->Update(localTransform);
 
 	//Ceres7 in astroid belt
-	speed = { 0.007, 0.01, 0.007 };
-	distM = 16.5;
+	speed = { 0.0047, 0.0077, 0.0047 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1489,13 +1573,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres7->Update(localTransform);
 
 	//Ceres8 in astroid belt
-	speed = { 0.006, 0.009, 0.006 };
-	distM = 16.5;
+	speed = { 0.0046, 0.0076, 0.0046 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1507,13 +1591,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres8->Update(localTransform);
 
 	//Ceres9 in astroid belt
-	speed = { -0.005, -0.008, -0.005 };
-	distM = 16.5;
+	speed = { 0.0045, 0.0074, 0.0045 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1525,13 +1609,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres9->Update(localTransform);
 
 	//Ceres10 in astroid belt
-	speed = { 0.001, 0.001, 0.004 };
-	distM = 16.5;
+	speed = { 0.0044, 0.0074, 0.0044 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1544,13 +1628,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres10->Update(localTransform);
 
 	//Ceres11 in astroid belt
-	speed = { -0.008, 0.002, 0.005 };
-	distM = 16.5;
+	speed = { 0.0043, 0.0073, 0.0043 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1563,13 +1647,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres11->Update(localTransform);
 
 	//Ceres12 in astroid belt
-	speed = { 0.005, 0.007, 0.001 };
-	distM = 16.5;
+	speed = { 0.0042, 0.0072, 0.0042 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1581,13 +1665,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres12->Update(localTransform);
 
 	//Ceres13 in astroid belt
-	speed = { -0.004, -0.001, -0.004 };
-	distM = 16.5;
+	speed = { 0.0041, 0.0071, 0.0041 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1600,13 +1684,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres13->Update(localTransform);
 
 	//Ceres14 in astroid belt
-	speed = { -0.003, 0.001, -0.003 };
-	distM = 16.5;
+	speed = { 0.004, 0.007, 0.004 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1618,13 +1702,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres14->Update(localTransform);
 
 	//Ceres15 in astroid belt
-	speed = {-0.002, 0.002, -0.002 };
-	distM = 16.5;
+	speed = { 0.0039, 0.0069, 0.0039 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1636,13 +1720,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres15->Update(localTransform);
 
 	//Ceres16 in astroid belt
-	speed = { -0.001, 0.003, -0.001 };
-	distM = 16.5;
+	speed = { 0.0038, 0.0068, 0.0038 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1654,13 +1738,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres16->Update(localTransform);
 
 	//Ceres17 in astroid belt
-	speed = { 0.001, 0.004, 0.001 };
-	distM = 16.5;
+	speed = { 0.0037, 0.0067, 0.0037 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1672,13 +1756,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres17->Update(localTransform);
 
 	//Ceres18 in astroid belt
-	speed = { 0.002, 0.005, 0.002 };
-	distM = 16.5;
+	speed = { 0.0036, 0.0066, 0.0036 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1691,13 +1775,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres18->Update(localTransform);
 
 	//Ceres19 in astroid belt
-	speed = { 0.003, 0.006, 0.003 };
-	distM = 16.5;
+	speed = { 0.0035, 0.0065, 0.0035 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1710,13 +1794,13 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres19->Update(localTransform);
 
 	//Ceres20 in astroid belt
-	speed = { 0.004, 0.007, 0.004 };
-	distM = 16.5;
+	speed = { 0.0034, 0.0064, 0.0034 };
+	distM = 16.1;
 	distM = distM * multiplierD;
 	dist = { distM, 0, distM };
 	rotVector = { 0.,1.,0. };
 	rotSpeed = { 1., 1., 1. };
-	scaler = .4;
+	scaler = .15;
 	scaler = scaler * multiplier;
 	scale = { scaler, scaler, scaler };
 	localTransform = modelStack.top();				// start with sun's coordinate
@@ -1729,9 +1813,381 @@ void Graphics::updateAsteroidBelt(double dt)
 		m_ceres20->Update(localTransform);
 }
 
+//Update kuiper belt, sorry for no instancing
+void Graphics::updateKuiperBelt(double dt)
+{
+	//Kuiper1 in astroid belt
+	speed = { 0.005, 0.008, 0.005 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper1 != NULL)
+		m_kuiper1->Update(localTransform);
+
+	//Kuiper2 in astroid belt
+	speed = { 0.0051, 0.0081, 0.0051 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper2 != NULL)
+		m_kuiper2->Update(localTransform);
+
+	//Kuiper3 in astroid belt
+	speed = { 0.0049, 0.0079, 0.0049 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper3 != NULL)
+		m_kuiper3->Update(localTransform);
+
+	//Kuiper4 in astroid belt
+	speed = { 0.0052, 0.0082, 0.0052 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper4 != NULL)
+		m_kuiper4->Update(localTransform);
+
+	//Kuiper5 in astroid belt
+	speed = { 0.0048, 0.0078, 0.0048 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper5 != NULL)
+		m_kuiper5->Update(localTransform);
+
+	//Kuiper6 in astroid belt
+	speed = { 0.0053, 0.0083, 0.0053 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper6 != NULL)
+		m_kuiper6->Update(localTransform);
+
+	//Kuiper7 in astroid belt
+	speed = { 0.0047, 0.0077, 0.0047 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper7 != NULL)
+		m_kuiper7->Update(localTransform);
+
+	//Kuiper8 in astroid belt
+	speed = { 0.0046, 0.0076, 0.0046 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper8 != NULL)
+		m_kuiper8->Update(localTransform);
+
+	//Kuiper9 in astroid belt
+	speed = { 0.0045, 0.0074, 0.0045 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper9 != NULL)
+		m_kuiper9->Update(localTransform);
+
+	//Kuiper10 in astroid belt
+	speed = { 0.0044, 0.0074, 0.0044 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper10 != NULL)
+		m_kuiper10->Update(localTransform);
+
+	//Kuiper11 in astroid belt
+	speed = { 0.0043, 0.0073, 0.0043 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper11 != NULL)
+		m_kuiper11->Update(localTransform);
+
+	//Kuiper12 in astroid belt
+	speed = { 0.0042, 0.0072, 0.0042 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper12 != NULL)
+		m_kuiper12->Update(localTransform);
+
+	//Kuiper13 in astroid belt
+	speed = { 0.0041, 0.0071, 0.0041 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper13 != NULL)
+		m_kuiper13->Update(localTransform);
+
+	//Kuiper14 in astroid belt
+	speed = { 0.004, 0.007, 0.004 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper14 != NULL)
+		m_kuiper14->Update(localTransform);
+
+	//Kuiper15 in astroid belt
+	speed = { 0.0039, 0.0069, 0.0039 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper15 != NULL)
+		m_kuiper15->Update(localTransform);
+
+	//Kuiper16 in astroid belt
+	speed = { 0.0038, 0.0068, 0.0038 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper16 != NULL)
+		m_kuiper16->Update(localTransform);
+
+	//Kuiper17 in astroid belt
+	speed = { 0.0037, 0.0067, 0.0037 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper17 != NULL)
+		m_kuiper17->Update(localTransform);
+
+	//Kuiper18 in astroid belt
+	speed = { 0.0036, 0.0066, 0.0036 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper18 != NULL)
+		m_kuiper18->Update(localTransform);
+
+	//Kuiper19 in astroid belt
+	speed = { 0.0035, 0.0065, 0.0035 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper19 != NULL)
+		m_kuiper19->Update(localTransform);
+
+	//Kuiper20 in astroid belt
+	speed = { 0.0034, 0.0064, 0.0034 };
+	distM = 28;
+	distM = distM * multiplierD;
+	dist = { distM, 0, distM };
+	rotVector = { 0.,1.,0. };
+	rotSpeed = { 1., 1., 1. };
+	scaler = .2;
+	scaler = scaler * multiplier;
+	scale = { scaler, scaler, scaler };
+	localTransform = modelStack.top();				// start with sun's coordinate
+	localTransform *= glm::translate(glm::mat4(1.f),
+		glm::vec3(cos(speed[0] * dt) * dist[0], sin(speed[1] * dt) * dist[1], sin(speed[2] * dt) * dist[2]));
+	//modelStack.push(localTransform);			// store planet-sun coordinate
+	localTransform *= glm::rotate(glm::mat4(1.f), rotSpeed[0] * (float)dt, rotVector);
+	localTransform *= glm::scale(glm::vec3(scale[0], scale[1], scale[2]));
+	if (m_kuiper20 != NULL)
+		m_kuiper20->Update(localTransform);
+
+}
+
+//Render the asteroid belt
 void Graphics::renderAsteroidBelt()
 {
-
 	//Ceres1
 	if (m_ceres1 != NULL) {
 		glUniform1i(m_hasTexture, false);
@@ -2078,4 +2534,354 @@ void Graphics::renderAsteroidBelt()
 		}
 	}
 
+}
+
+//render the kuiper bels
+void Graphics::renderKuiperBelt()
+{
+	//Ceres1
+	if (m_kuiper1 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper1->GetModel()));
+		if (m_kuiper1->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper1->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper1->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres2
+	if (m_kuiper2 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper2->GetModel()));
+		if (m_kuiper2->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper2->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper2->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres3
+	if (m_kuiper3 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper3->GetModel()));
+		if (m_kuiper3->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper3->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper3->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres4
+	if (m_kuiper4 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper4->GetModel()));
+		if (m_kuiper4->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper4->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper4->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres5
+	if (m_kuiper5 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper5->GetModel()));
+		if (m_kuiper5->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper5->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper5->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres6
+	if (m_kuiper6 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper6->GetModel()));
+		if (m_kuiper6->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper6->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper6->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres7
+	if (m_kuiper7 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		//m_shader->setMat4("model", m_mesh->GetModel());
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper7->GetModel()));
+		if (m_kuiper7->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper7->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper7->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres8
+	if (m_kuiper8 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper8->GetModel()));
+		if (m_kuiper8->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper8->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper8->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres9
+	if (m_kuiper9 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper9->GetModel()));
+		if (m_kuiper9->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper9->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper9->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
+	//Ceres10
+	if (m_kuiper10 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper10->GetModel()));
+		if (m_kuiper10->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper10->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper10->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
+	//Ceres11
+	if (m_kuiper11 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper11->GetModel()));
+		if (m_kuiper11->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper11->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper11->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres12
+	if (m_kuiper12 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper12->GetModel()));
+		if (m_kuiper12->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper12->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper12->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres13
+	if (m_kuiper13 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper13->GetModel()));
+		if (m_kuiper13->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper13->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper13->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres14
+	if (m_kuiper14 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper14->GetModel()));
+		if (m_kuiper14->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper14->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper14->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres15
+	if (m_kuiper15 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper15->GetModel()));
+		if (m_kuiper15->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper15->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper15->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+
+	//Ceres16
+	if (m_kuiper16 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper16->GetModel()));
+		if (m_kuiper16->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper16->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper16->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres17
+	if (m_kuiper17 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper17->GetModel()));
+		if (m_kuiper17->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper17->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper17->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres18
+	if (m_kuiper18 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper18->GetModel()));
+		if (m_kuiper18->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper18->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper18->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres19
+	if (m_kuiper19 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper19->GetModel()));
+		if (m_kuiper19->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper19->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper19->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
+	//Ceres20
+	if (m_kuiper20 != NULL) {
+		glUniform1i(m_hasTexture, false);
+
+		glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_kuiper20->GetModel()));
+		if (m_kuiper20->hasTex) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_kuiper20->getTextureID());
+			GLuint sampler = m_shader2->GetUniformLocation("sp");
+			if (sampler == INVALID_UNIFORM_LOCATION)
+			{
+				printf("Sampler Not found not found\n");
+			}
+			glUniform1i(sampler, 0);
+			m_kuiper20->Render(m_positionAttrib, m_normalAttrib, m_tcAttrib, m_hasTexture);
+		}
+	}
 }

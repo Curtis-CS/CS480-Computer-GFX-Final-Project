@@ -21,12 +21,8 @@ public:
 
 
     double mXpos;
-    //float Xoffset;
-    //float lastX;
+
     double mYpos;
-    //float Yoffset;
-    //float lastY;
-    //const float snesitivity = .1f;
 
     bool firstFrame = true;
     int counter = 0;
@@ -47,14 +43,13 @@ public:
 
     Graphics* m_graphics;
 
-private:
-    // Window related variables
+    int timer = 0;
 
+private:
 
     bool m_running;
 
-    const float cameraSpeed = 0.05f;
-
+    const float cameraSpeed = 0.005f;
 
 };
 

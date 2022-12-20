@@ -21,9 +21,21 @@ public:
     void movUp(double camSpeed);
     void movDown(double camSpeed);
 
+    void movForBack(double camVel);
+    void movLeftRight(double camVel);
+    void movUpDown(double camVel);
+
     void ProcessMouseMovement(double xPosIn, double yPosIn, float fov, double yZoomOffset);
 
     void moveTest();
+
+    float forBackVel =0;
+    float leftRightVel = 0;
+    float upDownVel = 0;
+
+    glm::vec3 worldUp;
+
+    glm::vec3 front;
 
     glm::mat4 GetViewSkybox();
 

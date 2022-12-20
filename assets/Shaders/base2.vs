@@ -1,29 +1,21 @@
-#version 460
+#version 330 core
+layout (location = 0) in vec3 v_position;
+layout (location = 1) in vec3 v_normal;
+layout (location = 2) in vec2 v_tc;
 
-smooth in vec3 normal;
-layout (binding=0) uniform sampler2D normalSP;
-layout (binding=1) uniform sampler2D textureSP;
+out vec3 FragPos;
+out vec3 Normal;
+out vec2 tc;
 
-in vec2 tc;
-uniform bool hasTexture;
-uniform bool hasNormal;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
 
-out vec4 frag_texture;
-out vec4 frag_normal;
-
-void main(void) 
+void main()
 {
-    if(hasTexture)
-        frag_texture = texture(textureSP, tc); 
-    else 
-        frag_texture = vec4(normal.rgb, 1.0);
+    FragPos = vec3(modelMatrix * vec4(v_position, 1.0));
+    Normal = mat3(transpose(inverse(modelMatrix))) * v_normal;  
+    tc = v_tc;
     
-    if(hasNormal)
-    {
-        vec3 norm = normalize(normal);
-        norm = texture(normalSP, tc).rgb;
-        frag_normal = vec4(normalize(norm * 2.0 - 1.0), 1.0); // map from [0, 1] to [-1, 1]
-    }
-    else 
-        frag_normal = vec4(normal.rgb, 1.0);
-} 
+    gl_Position = projectionMatrix * viewMatrix * vec4(FragPos, 1.0);
+}
